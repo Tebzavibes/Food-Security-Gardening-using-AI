@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/CSS/AWG.css">
+        <title>The Algorithm collective</title>
+        <video autoplay muted loop id="background-video">
+            <source src="/Media/Weat_Bg.mp4" type="video/mp4">
+        </video>
+    </head>
+    
+    <body> 
+        <div class="navbar">
+            <a class = "subnavbtn" href = "/Website_pages/AWG_Home.html"> Home </a>
+            <a class = "subnavbtn" href = "/Website_pages/AWG_Advisor.html"> AWG Advisor </a>
+        </div>
+
+        <div class="AWGcontent">
+            <h1>AWG Efficiency Optimizer</h1>
+
+            <label for="humidity">Humidity (%)</label>
+            <input type="number" id="humidity" required>
+
+            <label for="temperature">Temperature (°C)</label>
+            <input type="number" id="temperature" required>
+
+            <label for="timeOfDay">Time of Day</label>
+            <select id="timeOfDay">
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+                <option value="night">Night</option>
+            </select>
+
+            <label for="runtime">Intended Runtime (hours)</label>
+            <input type="number" id="runtime" required>
+
+            <button onclick="calculateAWG()">Check Efficiency</button>
+
+            <div class="output" id="result">
+
+                <script>
+                    function calculateAWG() {
+                    const POWER_RATING_KW = 0.5; // 500W
+                    const WATER_YIELD_FACTOR = 0.3; // liters per % humidity per hour
+
+                    // Get inputs
+                    const humidity = parseFloat(document.getElementById("humidity").value);
+                    const temperature = parseFloat(document.getElementById("temperature").value);
+                    const timeOfDay = document.getElementById("timeOfDay").value;
+                    const runtime = parseFloat(document.getElementById("runtime").value);
+
+                    let efficientHumidity = humidity >= 60;
+                    let efficientTemp = (temperature >= 18 && temperature <= 30);
+                    let efficientTime = (timeOfDay === "night" || timeOfDay === "morning");
+
+                    // Water yield
+                    let waterYield = 0;
+                    if (humidity >= 40) {
+                        waterYield = humidity * WATER_YIELD_FACTOR * runtime / 100.0;
+                    }
+
+                    // Power consumption
+                    let powerUsed = POWER_RATING_KW * runtime;
+
+                    let message = "";
+                    if (efficientHumidity && efficientTemp && efficientTime) {
+                        message = `✅ Optimal conditions. Run the AWG.<br>
+                                Estimated water yield: ${waterYield.toFixed(2)} liters<br>
+                                Estimated power use: ${powerUsed.toFixed(2)} kWh`;
+                    } else if (efficientHumidity && efficientTemp) {
+                        message = `⚠️ Conditions are okay, but not ideal.<br>
+                                Estimated water yield: ${waterYield.toFixed(2)} liters<br>
+                                Estimated power use: ${powerUsed.toFixed(2)} kWh`;
+                    } else {
+                        message = `❌ Inefficient conditions. Keep AWG OFF.<br>
+                                Power saved by not running: ${powerUsed.toFixed(2)} kWh`;
+                    }
+
+                    document.getElementById("result").innerHTML = message;
+                    }
+                </script>
+            </div>   
+        </div>
+
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const container = document.querySelector(".websitecontainer");
+
+        let scrollStep = 2;   // speed (px per tick)
+        let scrollInterval = 20; // in ms
+        let direction = 1;    // 1 = right, -1 = left
+        let autoScrollTimer;
+
+        function autoScroll() {
+        // Bounce logic
+        if (direction === 1 && container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+            direction = -1; // reached end then go left
+        } else if (direction === -1 && container.scrollLeft <= 0) {
+            direction = 1;  // reached start then go right
+        }
+        container.scrollLeft += scrollStep * direction;
+        }
+
+        // start scrolling
+        autoScrollTimer = setInterval(autoScroll, scrollInterval);
+
+        //Pause when user hovers (for interaction)
+        container.addEventListener("mouseenter", () => clearInterval(autoScrollTimer));
+        container.addEventListener("mouseleave", () => {
+        autoScrollTimer = setInterval(autoScroll, scrollInterval);
+        });
+    });
+    </script>
+
+    </body>
+</html>

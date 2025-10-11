@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+    <title>AWS AI advisor </title>
+
+    <link rel="stylesheet" href="/CSS/AWG.css" />
+
+    <video autoplay muted loop id="background-video">
+        <source src="/Media/Weat_Bg.mp4" type="video/mp4">
+    </video>
+
+</head>
+<body>
+    <div class="navbar">
+        <a class = "subnavbtn" href = "/Website_pages/AWG_Effeciency_Calculator.html"> AWG Efficiency Optimizer</a>
+        <a class = "subnavbtn" href = "/Website_pages/AWG_Home.html"> Home</a>
+    </div>
+
+  <div class="content">
+
+    <!-- Optional Intro Section (styled by your .tab-content class) -->
+    <div class="h2">
+        <h2 class = "h1">☁️ AWG AI Tips</h2>
+        <button onclick="generateWeatherTip()" class = "tip">Generate AWG Tip</button>
+	</div>
+
+    
+
+    <!-- AI Weather Tips -->
+	<div id = "weatherTip" class="paragraph">
+	  <div class="subtext">🌤️ Click the button to get an irrigation tip based on the 7-day weather forecast in your area.</div>
+    </div> 
+
+  </div>
+
+  
+
+  <script src="/JavaScript/AWG_Advisor.js"></script>
+  <script src="/JavaScript/AC.js"></script>
+</body>
+</html>
