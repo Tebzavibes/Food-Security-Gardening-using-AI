@@ -1,0 +1,1 @@
+A colabrative project exploring how community and household gardens can improve food security. We researched the problem, developed practical recommendations for communities, and built a food gardening website. We also modelled the financial side with an ROI and cumulative savings analysis, and presented the findings in a final report and presentation.
